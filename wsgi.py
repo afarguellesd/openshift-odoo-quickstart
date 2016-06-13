@@ -12,16 +12,16 @@ except IOError:
 # line, it's possible required libraries won't be in your searchable path
 #
 
-
 import sys
 
 ODOO_ROOT_DIR = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', '.'), 'odoo')
 if ODOO_ROOT_DIR not in sys.path:
-    sys.path.append(ODOO_ROOT_DIR)
+	sys.path.append(ODOO_ROOT_DIR)
 
-os.environ['XDG_DATA_HOME'] = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', '.'),'.local/share')
-os.environ['XDG_CACHE_HOME'] = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', '.'),'.cache')
-os.environ['XDG_CONFIG_HOME'] = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', '.'),'.config')
+os.environ['XDG_DATA_HOME'] = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', '.'), '.local/share')
+os.environ['XDG_CACHE_HOME'] = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', '.'), 'cache')
+os.environ['XDG_CONFIG_HOME'] = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', '.'), '.config')
+os.environ['PATH'] += os.pathsep + os.path.join(os.environ.get('OPENSHIFT_REPO_DIR', '.'), '.npm/less/2.7.1/package/bin')
 
 
 import openerp
@@ -35,18 +35,19 @@ openerp.multi_process = True # Nah!
 openerp.conf.server_wide_modules = ['web']
 conf = openerp.tools.config
 
-# Path to the ODOO Addons repository (comma-separated for
+# Path to the OpenERP Addons repository (comma-separated for
 # multiple locations)
 
-conf['addons_path'] = ','.join([os.path.join(ODOO_ROOT_DIR,'openerp' ,'addons'),os.path.join(ODOO_ROOT_DIR, 'addons'),os.path.join(os.environ.get('OPENSHIFT_REPO_DIR', '.'), 'addons')])
-#conf['addons_path'] = os.path.join(os.environ.get('OPENSHIFT_REPO_DIR', '.'), 'addons')
+#conf['addons_path'] = '../../addons/trunk,../../web/trunk/addons'
+conf['addons_path'] = ','.join([os.path.join(ODOO_ROOT_DIR,'openerp' ,'addons'),os.path.join(ODOO_ROOT_DIR, 'addons')])
+
 
 # Optional database config if not using local socket
 conf['admin_passwd'] = os.environ.get('ODOO_ADMIN_PASS','superadm0n')
-conf['db_host']     = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
-conf['db_port']     = int(os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'])
-conf['db_user']     = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
-conf['db_name']     = os.environ['OPENSHIFT_APP_NAME']
+conf['db_name'] = os.environ['OPENSHIFT_APP_NAME']
+conf['db_host'] = os.environ['OPENSHIFT_POSTGRESQL_DB_HOST']
+conf['db_user'] = os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME']
+conf['db_port'] = int(os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'])
 conf['db_password'] = os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD']
 
 conf['logfile'] = os.path.join(os.environ.get('OPENSHIFT_LOG_DIR', '.') , 'odoo.log')
@@ -55,14 +56,15 @@ conf['logfile'] = os.path.join(os.environ.get('OPENSHIFT_LOG_DIR', '.') , 'odoo.
 # Generic WSGI handlers application
 #----------------------------------------------------------
 application = openerp.service.wsgi_server.application
+
 openerp.service.server.load_server_wide_modules()
 
 #----------------------------------------------------------
 # Gunicorn
 #----------------------------------------------------------
-# Standard ODOO XML-RPC port is 8069
+# Standard OpenERP XML-RPC port is 8069
 #bind = '127.0.0.1:8069'
-#pidfile = ODOO_ROOT_DIR+'.gunicorn.pid'
+#pidfile = '.gunicorn.pid'
 #workers = 4
 #timeout = 240
 #max_requests = 2000
@@ -75,5 +77,3 @@ openerp.service.server.load_server_wide_modules()
 #    httpd = make_server('localhost', 8051, application)
 #    # Wait for a single request, serve it and quit.
 #    httpd.handle_request()
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

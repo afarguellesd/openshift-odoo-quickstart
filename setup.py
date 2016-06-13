@@ -1,9 +1,10 @@
 from setuptools import setup
 
 setup(name='Odoo',
-      version='8.0',
-      description='Odoo on OpenShift',
-      author='Juan Ramón alfaro',
-      author_email='amon.raj@gmail.com',
-      url='https://github.com/amon-ra/openshift-odoo-quickstart',
-)
+      version='9.0',
+      description='Odoo 9.0',
+      author='AndrésArgüelles',
+      author_email='aarguellesdelgado@gmail.com',
+##      url='http://www.python.org/sigs/distutils-sig/',
+#      install_requires=['Django>=1.3'],
+     )
