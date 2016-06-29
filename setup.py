@@ -1,10 +1,8 @@
 from setuptools import setup
 
-setup(name='YourAppName',
-      version='1.0',
-      description='OpenShift App',
-      author='Your Name',
-      author_email='example@example.com',
-      url='http://www.python.org/sigs/distutils-sig/',
-#      install_requires=['Django>=1.3'],
+setup(name='Odoo',
+      version='9.0',
+      description='Odoo 9.0',
+      author='Andres Arguelles',
+      author_email='aarguellesdelgado@gmail.com',
      )

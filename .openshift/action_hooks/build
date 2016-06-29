@@ -1,2 +1,22 @@
 #!/bin/bash
-pip install -r $OPENSHIFT_REPO_DIR/requirements.txt --no-cache-dir
+
+ODOO_VERSION=9.0
+ODOO_URL=https://github.com/odoo/odoo/archive/$ODOO_VERSION.zip
+
+cd $OPENSHIFT_DATA_DIR
+
+if [ ! -f "$OPENSHIFT_DATA_DIR/odoo" ]; then
+  echo "Odoo will be downloaded now."
+  wget $ODOO_URL -O $OPENSHIFT_DATA_DIR/odoo-${ODOO_VERSION}.zip
+
+  unzip -o $OPENSHIFT_DATA_DIR/odoo-${ODOO_VERSION}.zip
+
+  ln -s $OPENSHIFT_DATA_DIR/odoo-${ODOO_VERSION} $OPENSHIFT_DATA_DIR/odoo
+
+  source $OPENSHIFT_PYTHON_DIR/virtenv/bin/activate
+  pip install -r $OPENSHIFT_DATA_DIR/odoo/requirements.txt --no-cache-dir
+  
+  cd $OPENSHIFT_DATA_DIR/odoo
+  sed -i '/python-ldap/d' setup.py
+  python setup.py develop
+fi
