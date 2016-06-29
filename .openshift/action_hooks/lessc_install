@@ -1,0 +1,15 @@
+#!/bin/bash
+# lessc requirements
+OLDHOME=$HOME
+HOME=$OPENSHIFT_REPO_DIR
+cd $HOME
+
+npm install errno
+npm install mkdirp
+npm install promise
+npm install mime
+npm install source-map
+npm install graceful-fs
+npm install less
+
+HOME=$OLDHOME
