@@ -4,5 +4,4 @@ setup(name='Odoo',
       version='9.0',
       description='Odoo 9.0',
       author='Andres Arguelles',
-      author_email='aarguellesdelgado@gmail.com',
      )
