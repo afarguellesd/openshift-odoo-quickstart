@@ -20,4 +20,5 @@ if [ ! -f "$OPENSHIFT_DATA_DIR/odoo" ]; then
   cd $OPENSHIFT_DATA_DIR/odoo
   sed -i '/python-ldap/d' setup.py
   python setup.py develop
+  rm -rf $OPENSHIFT_DATA_DIR/odoo-${ODOO_VERSION}.zip
 fi

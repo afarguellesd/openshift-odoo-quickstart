@@ -3,4 +3,8 @@
 source ${OPENSHIFT_PYTHON_DIR}/virtenv/bin/activate
 
 cd $OPENSHIFT_DATA_DIR/odoo
-XDG_DATA_HOME="$OPENSHIFT_DATA_DIR/.local/share" ./openerp-server --update=all --stop-after-init -d $OPENSHIFT_APP_NAME -r $OPENSHIFT_POSTGRESQL_DB_USERNAME -w $OPENSHIFT_POSTGRESQL_DB_PASSWORD --db_host=$OPENSHIFT_POSTGRESQL_DB_HOST --db_port=$OPENSHIFT_POSTGRESQL_DB_PORT --addons-path="$OPENSHIFT_DATA_DIR/odoo/addons,$OPENSHIFT_DATA_DIR/odoo/openerp/addons"
+
+# Added --without-demo flag
+# If you want to add demo data, remove the --without-demo flag
+
+XDG_DATA_HOME="$OPENSHIFT_DATA_DIR/.local/share" ./openerp-server --update=all --stop-after-init -d $OPENSHIFT_APP_NAME -r $OPENSHIFT_POSTGRESQL_DB_USERNAME -w $OPENSHIFT_POSTGRESQL_DB_PASSWORD --db_host=$OPENSHIFT_POSTGRESQL_DB_HOST --db_port=$OPENSHIFT_POSTGRESQL_DB_PORT --addons-path="$OPENSHIFT_DATA_DIR/odoo/addons,$OPENSHIFT_DATA_DIR/odoo/openerp/addons" --without-demo=True

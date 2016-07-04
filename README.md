@@ -21,6 +21,11 @@ $ git push
 
 That's it!
 
+Before pushing, if you don't want demo data loaded in your instance, delete the **--without-demo** flag from **post_deploy** openshift action hook.
+```
+sed -i 's/--without-demo=True//' .openshift/action_hooks/post_deploy
+```
+
 Now put your own modules in addons dir and do another 
 ```
 git push
