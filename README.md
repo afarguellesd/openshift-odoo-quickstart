@@ -26,7 +26,7 @@ Now put your own modules in addons dir and do another
 git push
 ```
 
-Point your browser to [https://<your_app_name>-$namespace.rhcloud.com](https://<your_app_name>-$namespace.rhcloud.com) and login.
+Point your browser to [https://your_app_name-$namespace.rhcloud.com](https://<your_app_name>-$namespace.rhcloud.com) and login.
 Default credentials are:
 
 ```
