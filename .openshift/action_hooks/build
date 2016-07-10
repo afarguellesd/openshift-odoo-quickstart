@@ -6,7 +6,7 @@ ODOO_URL=https://github.com/odoo/odoo/archive/$ODOO_VERSION.zip
 unset TMOUT
 cd $OPENSHIFT_DATA_DIR
 
-if [ ! -f "$OPENSHIFT_DATA_DIR/odoo" ]; then
+if [ ! -L "$OPENSHIFT_DATA_DIR/odoo" ]; then
   echo "Odoo will be downloaded now."
   wget $ODOO_URL -O $OPENSHIFT_DATA_DIR/odoo-${ODOO_VERSION}.zip
 
@@ -16,6 +16,8 @@ if [ ! -f "$OPENSHIFT_DATA_DIR/odoo" ]; then
 
   source $OPENSHIFT_PYTHON_DIR/virtenv/bin/activate
   source $OPENSHIFT_REPO_DIR/.openshift/action_hooks/lessc_install
+  # Delete LDAP requirement before install
+  sed -i '/ldap/d' $OPENSHIFT_DATA_DIR/odoo/requirements.txt
   pip install -r $OPENSHIFT_DATA_DIR/odoo/requirements.txt --no-cache-dir
   
   cd $OPENSHIFT_DATA_DIR/odoo
