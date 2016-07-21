@@ -1,0 +1,5 @@
+#!/bin/bash
+# Odoo 9.0 Installer
+unset TMOUT
+source $OPENSHIFT_REPO_DIR/install_scripts/build
+source $OPENSHIFT_REPO_DIR/install_scripts/post_deploy
