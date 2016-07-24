@@ -45,6 +45,10 @@ Username: admin
 Password: admin
 ```
 
+## HTTPS Routing
+
+The source includes a .htaccess file for routing all request via https
+
 ## Upgrade
 
 To use master version pull master on previus commands.
